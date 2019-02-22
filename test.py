@@ -43,12 +43,10 @@ def optical_flow(one, two):
 def to_u(a):
     a -= np.min(a)
     a /= np.max(a)
-    #print('Read a new frame: ', success)
     a *= 255
-    # u = np.concatenate((u, np.uint8(image)), axis=0)
     return np.uint8(a)
 
-#def get_optical_flow(a,b):
+
 
 mn =5e5
 mx=-5e5
@@ -56,26 +54,13 @@ images_us = []
 images_transforms = []
 while success:
     #cv2.imwrite("frame%d.jpg" % count, image)     # save frame as JPEG file
-    success,image = vidcap.read()  # image shaoe 392 640 3
+    success,image = vidcap.read()  # image shape 392 640 3
     image=image[80:205,245:425]
     image = np.array(image)
-    #plt.imshow(image)
-    #plt.show()
-    #u=[]
+
     count+=1
     print(count)
     u = optical_flow(image,prev_image)
-
-    # TO ZA RAZLIKE
-    #u = np.float32(image)-np.float32(prev_image)
-    #u -= np.min(u)
-    #u/=np.max(u)
-    #print('Read a new frame: ', success)
-
-    # TO ZA DVF
-    #u = optical_flow(image,prev_image)
-    #u=to_u(u)
-
 
     images_transforms.append(u)
     if np.max(u)> mx:
@@ -87,24 +72,6 @@ while success:
     u[indices]=0
 
     images_us.append(image)
-    """DELA
-    image = np.array(image)
-    u=[]
-    count+=1
-    print(count)
-    u = optical_flow(image,prev_image)
-
-    print('Read a new frame: ', success)
-    u=to_u(u)
-
-    images.append(u)
-    """
-        #u=toimage(u)
-        #cv2.convertTo(u, CV_)
-        #plt.imshow(image)
-        #plt.show()
-        #plt.imshow(prev_image)
-        #plt.show()
     prev_image = image
     if count>1000:
         break
