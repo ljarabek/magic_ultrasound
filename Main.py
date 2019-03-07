@@ -125,7 +125,7 @@ plt.plot(datapoints)
 plt.show()
 
 
-out = cv2.VideoWriter('lotltest.avi',apiPreference=0, fourcc= cv2.VideoWriter_fourcc(*'DIVX'), fps=18, frameSize=(video[0].shape[1],video[0].shape[0]))
+out = cv2.VideoWriter('lotltest22.avi',apiPreference=0, fourcc= cv2.VideoWriter_fourcc(*'DIVX'), fps=18, frameSize=(video[0].shape[1],video[0].shape[0]))
 
 for imag in video:
     out.write(imag)
