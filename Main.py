@@ -1,5 +1,7 @@
 import cv2
 from scipy.misc import toimage
+
+
 vidcap = cv2.VideoCapture('C:/ultrasound_testing\ALOKA_US/05061951/20181220/05061951_20181220_MSK-_VIDEO_0002.AVI')
 success,prev_image = vidcap.read()
 prev_image =prev_image[130:280,214:470]
@@ -50,7 +52,8 @@ mn =5e5
 mx=-5e5
 images_us = []
 images_transforms = []
-while success:
+#while success:
+for i in range(1804):
     #cv2.imwrite("frame%d.jpg" % count, image)     # save frame as JPEG file
     success,image = vidcap.read()  # image shaoe 392 640 3
     image = np.array(image[130:280,214:470])
@@ -79,7 +82,7 @@ while success:
         mx= np.max(u)
     if np.min(u)<mn:
         mn=np.min(u)
-    std = 2*np.std(u)
+    std = 3*np.std(u)
     indices = u<(np.mean(u)+std)
     u[indices]=0
 
@@ -103,8 +106,8 @@ while success:
         #plt.imshow(prev_image)
         #plt.show()
     prev_image = image
-    if count>1000:
-        break
+    #if count>1000:
+    #    break
 
 video = []
 datapoints = []
@@ -123,7 +126,7 @@ for id, i in enumerate(images_transforms):
     #plt.show()
 plt.plot(datapoints)
 plt.show()
-
+np.save( "videotest.npy",video)
 
 out = cv2.VideoWriter('lotltest22.avi',apiPreference=0, fourcc= cv2.VideoWriter_fourcc(*'DIVX'), fps=18, frameSize=(video[0].shape[1],video[0].shape[0]))
 

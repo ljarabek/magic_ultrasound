@@ -79,5 +79,7 @@ def array_to_video(array, file = "../{}.avi".format(time())):
             frame= to_u(frame)
         out.write(frame)
 
+
+
 #plt.imshow(array_from_video()[55])
 #plt.show()
