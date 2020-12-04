@@ -1,0 +1,5 @@
+*.avi
+*.npy
+*.pkl
+__pycache__/
+.idea/

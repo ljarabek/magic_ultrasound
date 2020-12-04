@@ -10,7 +10,7 @@ def to_u(a):
     a *= 255
     return np.uint8(a)
 
-def optical_flow(one, two,pure=False, pyr_scale = 0.5, levels=1, winsize = 2, iterations = 2, poly_n = 5, poly_sigma = 1.1, flags = 0):
+def optical_flow(one, two,pure=False, pyr_scale = 0.5, levels=1, winsize = 2, iterations = 2, poly_n = 5, poly_sigma = 1.1, flags = 0, only_flow = False):
     """
     method taken from (https://chatbotslife.com/autonomous-vehicle-speed-estimation-from-dashboard-cam-ca96c24120e4)
     """
@@ -25,10 +25,12 @@ def optical_flow(one, two,pure=False, pyr_scale = 0.5, levels=1, winsize = 2, it
                                         pyr_scale=pyr_scale, levels=levels, winsize=winsize, #15 je bil winsize
                                         iterations=iterations,
                                         poly_n=poly_n, poly_sigma=poly_sigma, flags=flags)
+    if only_flow:
+        return flow
     # convert from cartesian to polar
-
     mag, ang = cv2.cartToPolar(flow[..., 0], flow[..., 1])
     # hue corresponds to direction
+
     if not pure:
         # ang is in radians (0 to 2pi)
         hsv[:,:,0] = ang * (255/ np.pi / 2)
